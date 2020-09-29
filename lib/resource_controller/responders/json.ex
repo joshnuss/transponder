@@ -1,7 +1,10 @@
 defmodule ResourceController.Responders.JSON do
+  @behaviour ResourceController.Responder
+
   import Plug.Conn
   import Phoenix.Controller
 
+  @impl true
   def respond(action, conn, fun) do
     case {action, fun.(conn)} do
       {_action, {:error, :not_found}} ->

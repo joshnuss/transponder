@@ -14,6 +14,31 @@ defmodule Responders.JSONTest do
     def render("show.json", %{response: response}) do
       response
     end
+
+    def render("errors.json", %{changeset: changeset}) do
+      Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+    end
+
+    defp translate_error({message, values}) do
+      Enum.reduce values, message, fn {k, v}, acc ->
+        String.replace(acc, "%{#{k}}", to_string(v))
+      end
+    end
+  end
+
+  defmodule FakeSchema do
+    use Ecto.Schema
+    import Ecto.Changeset
+
+    schema "baz" do
+      field :name, :string
+    end
+
+    def changeset(params \\ %{}) do
+      %__MODULE__{}
+      |> cast(params, [])
+      |> validate_required(:name)
+    end
   end
 
   test "responds to {:error, :not_found} with 404" do
@@ -22,6 +47,14 @@ defmodule Responders.JSONTest do
 
     assert conn.status == 404
     assert conn.resp_body == ~s|{"message":"Not found"}|
+  end
+
+  test "responds to {:error, changeset} with 422" do
+    conn = build_conn(:get, "/any_action")
+    conn = JSON.respond(:any_action, conn, fn _ -> {:error, FakeSchema.changeset()} end)
+
+    assert conn.status == 422
+    assert conn.resp_body == ~s|{"name":["can't be blank"]}|
   end
 
   test "responds to create {:ok, reponse} with 201" do

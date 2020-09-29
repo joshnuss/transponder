@@ -9,6 +9,11 @@ defmodule ResourceController.Responders.JSON do
         |> put_status(:not_found)
         |> json(%{message: "Not found"})
 
+      {action, {:error, changeset=%Ecto.Changeset{}}} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render("errors.json", changeset: changeset)
+
       {:index, {:ok, response}} ->
         conn
         |> put_status(200)

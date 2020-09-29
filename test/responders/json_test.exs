@@ -20,9 +20,9 @@ defmodule Responders.JSONTest do
     end
 
     defp translate_error({message, values}) do
-      Enum.reduce values, message, fn {k, v}, acc ->
+      Enum.reduce(values, message, fn {k, v}, acc ->
         String.replace(acc, "%{#{k}}", to_string(v))
-      end
+      end)
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Responders.JSONTest do
     import Ecto.Changeset
 
     schema "baz" do
-      field :name, :string
+      field(:name, :string)
     end
 
     def changeset(params \\ %{}) do

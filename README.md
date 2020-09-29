@@ -1,11 +1,17 @@
 # ResourceController
 
-**TODO: Add description**
+DRY up your Phoenix controllers.
+
+## Features
+
+- Turns controllers into completely declarative code.
+- Works with any context that returns tagged tuples like `{:ok, ...}` or `{:error, ...}`
+- Understands `Ecto.Changeset` errors and can render the error.
+- Built in responders for JSON and HTML and ability to create custom ones.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `resource_controller` to your list of dependencies in `mix.exs`:
+Add `resource_controller` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +21,40 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/resource_controller](https://hexdocs.pm/resource_controller).
+Add `ResourceController` to your controllers:
 
+```elixir
+defmodule MyAppWeb.Admin.ProductsController do
+  use MyAppWeb, :controller
+  use ResourceController,
+    responder: ResourceController.Reponders.JSON
+
+  defaction :index, &Catalog.list_products(&.params)
+  defaction :show, &Catalog.get_product(&.params)
+  defaction :create, &Catalog.create_product(&.params["product"])
+  defaction :update, &Catalog.update_product(&.params["id"], &.params["product"])
+  defaction :delete, &Catalog.delete_product(&.params["id"])
+end
+```
+
+Then define a `show.json.eex` and `index.json.eex`. Or you can use a `Phoenix.View`:
+
+```elixir
+defmodule MyAppWeb.Admin.ProductsView do
+  use MyAppWeb, :view
+
+  def render("index.json", %{response: products}) do
+    %{products: Enum.map(&render("show.json", response: &1))}
+  end
+
+  def render("show.json", %{response: product}) do
+    %{
+      id: product.id,
+      title: product.title,
+      price: product.price,
+    }
+  end
+end
+```
+
+Documentation: [https://hexdocs.pm/resource_controller](https://hexdocs.pm/resource_controller).

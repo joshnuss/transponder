@@ -9,6 +9,8 @@ DRY up your Phoenix controllers.
 - Understands `Ecto.Changeset` errors and can render the error.
 - Built in responders for JSON and HTML and ability to create custom ones.
 
+*DISCLAIMER*: this is intended for simple apps or for when your just starting building an app. More complex apps will require more code in their controllers and should use standard Phoenix controllers and tests.
+
 ## Installation
 
 Add `resource_controller` to your list of dependencies in `mix.exs`:

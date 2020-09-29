@@ -59,4 +59,43 @@ defmodule MyAppWeb.Admin.ProductsView do
 end
 ```
 
-Documentation: [https://hexdocs.pm/resource_controller](https://hexdocs.pm/resource_controller).
+To render HTML instead of JSON use `Responders.HTML`:
+
+```elixir
+defmodule MayAppWeb.Admin.ProductController do
+  use MyAppWeb, :controller
+  use ResourceController,
+    responder: ResourceController.Reponders.HTML
+
+  # defaction ...
+end
+```
+
+And then you'll need to create templates for the actions you use: `index.html.eex`, `show.html.eex`, etc..
+
+You can also create a custom responder:
+
+```elixir
+defmodule MyResponder do
+  @behaviour ResourceController.Responder
+
+  @impl true
+  def respond(action, conn, fun) do
+    # pattern match and render how you like
+    case fun.(conn) do
+      {:ok, bla} ->
+        conn
+        |> put_status(200)
+        |> render("yay.html")
+    end
+  end
+end
+```
+
+## Documentation:
+
+[https://hexdocs.pm/resource_controller](https://hexdocs.pm/resource_controller).
+
+## License
+
+MIT

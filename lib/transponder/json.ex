@@ -21,7 +21,7 @@ defmodule Transponder.JSON do
   end
 
   def format(:index, conn, {:ok, records}) do
-    render(conn, "index.json", record: records)
+    render(conn, "index.json", records: records)
   end
 
   def format(:create, conn, {:ok, record}) do

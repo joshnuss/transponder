@@ -5,37 +5,39 @@ defmodule ResourceController.Responders.JSON do
   import Phoenix.Controller
 
   @impl true
-  def respond(action, conn, response) do
-    case {action, response} do
-      {_action, {:error, :not_found}} ->
-        conn
-        |> put_status(:not_found)
-        |> json(%{message: "Not found"})
+  def respond(_action, conn, {:error, :not_found}) do
+    conn
+    |> put_status(:not_found)
+    |> json(%{message: "Not found"})
+  end
 
-      {_action, {:error, changeset = %Ecto.Changeset{}}} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render("errors.json", changeset: changeset)
+  def respond(_action, conn, {:error, changeset = %Ecto.Changeset{}}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> render("errors.json", changeset: changeset)
+  end
 
-      {:index, {:ok, response}} ->
-        conn
-        |> put_status(200)
-        |> render("index.json", response: response)
+  def respond(:index, conn, {:ok, response}) do
+    conn
+    |> put_status(200)
+    |> render("index.json", response: response)
+  end
 
-      {:create, {:ok, response}} ->
-        conn
-        |> put_status(201)
-        |> render("show.json", response: response)
+  def respond(:create, conn, {:ok, response}) do
+    conn
+    |> put_status(201)
+    |> render("show.json", response: response)
+  end
 
-      {:show, {:ok, response}} ->
-        conn
-        |> put_status(200)
-        |> render("show.json", response: response)
+  def respond(:show, conn, {:ok, response}) do
+    conn
+    |> put_status(200)
+    |> render("show.json", response: response)
+  end
 
-      {_action, _response} ->
-        conn
-        |> put_status(500)
-        |> json(%{message: "Unknown error. Please contact support."})
-    end
+  def respond(_action, conn, _response) do
+    conn
+    |> put_status(500)
+    |> json(%{message: "Unknown error. Please contact support."})
   end
 end

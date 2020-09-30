@@ -4,8 +4,8 @@ DRY up your Phoenix controllers.
 
 ## Features
 
-- Turns controllers into completely declarative code.
-- Works with any context that returns tagged tuples like `{:ok, ...}` or `{:error, ...}`
+- Turns controllers into declarative code.
+- Works with any context function that returns a tagged tuple like `{:ok, ...}` or `{:error, ...}`
 - Understands `Ecto.Changeset` errors and can render the error.
 - Built in responders for JSON and HTML and ability to create custom ones.
 

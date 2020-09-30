@@ -29,7 +29,7 @@ Add `use ResourceController` to your controllers, and define actions with `defac
 defmodule MyAppWeb.Admin.ProductsController do
   use MyAppWeb, :controller
   use ResourceController,
-    responder: ResourceController.Reponders.JSON
+    responder: ResourceController.Responders.JSON
 
   defaction :index,  &Catalog.list_products(&1.params)
   defaction :show,   &Catalog.get_product(&1.params)
@@ -65,7 +65,7 @@ To render HTML instead of JSON use `Responders.HTML`:
 defmodule MayAppWeb.Admin.ProductController do
   use MyAppWeb, :controller
   use ResourceController,
-    responder: ResourceController.Reponders.HTML
+    responder: ResourceController.Responders.HTML
 
   # defaction ...
 end

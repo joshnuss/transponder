@@ -18,9 +18,7 @@ defmodule ResourceController.Responders.JSON do
   end
 
   def respond(:index, conn, {:ok, response}) do
-    conn
-    |> put_status(200)
-    |> render("index.json", response: response)
+    render(conn, "index.json", response: response)
   end
 
   def respond(:create, conn, {:ok, response}) do
@@ -30,9 +28,7 @@ defmodule ResourceController.Responders.JSON do
   end
 
   def respond(:show, conn, {:ok, response}) do
-    conn
-    |> put_status(200)
-    |> render("show.json", response: response)
+    render(conn, "show.json", response: response)
   end
 
   def respond(_action, conn, _response) do

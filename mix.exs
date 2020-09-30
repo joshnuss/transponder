@@ -7,6 +7,12 @@ defmodule Transponder.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
+      description: "DSL for declarative Phoenix controllers",
+      package: [
+        maintainers: ["Joshua Nussbaum"],
+        licenses: ["MIT"],
+        links: %{github: "https://github.com/joshnuss/transponder"}
+      ],
       deps: deps()
     ]
   end

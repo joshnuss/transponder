@@ -4,12 +4,12 @@ defmodule Transponder do
   """
 
   defmacro __using__(opts) do
-    responder = Keyword.fetch!(opts, :responder)
+    format = Keyword.fetch!(opts, :format)
 
     quote do
       import Transponder
 
-      @responder unquote(responder)
+      @formatter unquote(format)
     end
   end
 
@@ -17,7 +17,7 @@ defmodule Transponder do
     quote do
       def unquote(name)(conn, params) do
         data = %{conn: conn, params: params, assigns: conn.assigns}
-        @responder.respond(unquote(name), conn, unquote(fun).(data))
+        @formatter.format(unquote(name), conn, unquote(fun).(data))
       end
     end
   end

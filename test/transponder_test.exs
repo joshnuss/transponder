@@ -3,24 +3,24 @@ defmodule TransponderTest do
   use Plug.Test
   doctest Transponder
 
-  defmodule TestResponder do
+  defmodule TestFormat do
     import Plug.Conn
 
-    @behaviour Transponder.Responder
+    @behaviour Transponder.Formatter
 
     @impl true
-    def respond(:special, conn, _n) do
+    def format(:special, conn, _n) do
       resp(conn, 200, "special-case")
     end
 
-    def respond(action, conn, n) do
+    def format(action, conn, n) do
       response = "#{action}:#{n}"
       resp(conn, 200, response)
     end
   end
 
   defmodule FakeController do
-    use Transponder, responder: TestResponder
+    use Transponder, format: TestFormat
 
     defaction(:index, fn _data -> 123 end)
     defaction(:create, fn _data -> 456 end)

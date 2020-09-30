@@ -7,7 +7,7 @@ DRY up your Phoenix controllers.
 - Turns controllers into declarative code.
 - Works with all context functions that return a tagged tuple like `{:ok, ...}` or `{:error, ...}`
 - Supports rendering `Ecto.Changeset` errors.
-- Built-in responders for JSON and HTML with ability to add custom ones.
+- Built-in formatters for JSON and HTML with ability to add custom ones.
 
 **Disclaimer**: This is intended for simple apps or when starting to build an application. More complex apps may require more complexity in their controllers, and then a standard Phoenix controller with tests would work better. This is just a starting point.
 
@@ -28,8 +28,7 @@ Add `use Transponder` to your controllers, and define actions with `defaction`:
 ```elixir
 defmodule MyAppWeb.Admin.ProductsController do
   use MyAppWeb, :controller
-  use Transponder,
-    responder: Transponder.JSON
+  use Transponder, format: Transponder.JSON
 
   defaction :index,  &Catalog.list_products(&1.params)
   defaction :show,   &Catalog.get_product(&1.params)
@@ -64,8 +63,7 @@ To render HTML instead of JSON use `Transponder.HTML`:
 ```elixir
 defmodule MayAppWeb.Admin.ProductController do
   use MyAppWeb, :controller
-  use Transponder,
-    responder: Transponder.HTML
+  use Transponder, format: Transponder.HTML
 
   # defaction ...
 end
@@ -73,21 +71,21 @@ end
 
 And then you'll need to create templates for the actions you use: `index.html.eex`, `show.html.eex`, etc..
 
-You can also create a custom responder:
+You can also create a custom formatter:
 
 ```elixir
-defmodule MyResponder do
-  @behaviour Transponder.Responder
+defmodule MyFormat do
+  @behaviour Transponder.Formatter
 
   # pattern match and render how you like
   @impl true
-  def respond(_action, conn, {:ok, bla}) do
+  def format(_action, conn, {:ok, bla}) do
     conn
     |> put_status(200)
     |> render("yay.html")
   end
 
-  def respond(_action, conn, {:error, bla}) do
+  def format(_action, conn, {:error, bla}) do
     conn
     |> put_status(401)
     |> render("oops.html")

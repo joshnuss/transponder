@@ -26,65 +26,65 @@ defmodule JSONTest do
     end
   end
 
-  test "responds to {:error, :not_found} with 404" do
+  test "formats to {:error, :not_found} with 404" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, {:error, :not_found})
+    conn = JSON.format(:any_action, conn, {:error, :not_found})
 
     assert conn.status == 404
     assert conn.resp_body == ~s|{"message":"Not found"}|
   end
 
-  test "responds to {:error, changeset} with 422" do
+  test "formats to {:error, changeset} with 422" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, {:error, FakeSchema.changeset()})
+    conn = JSON.format(:any_action, conn, {:error, FakeSchema.changeset()})
 
     assert conn.status == 422
     assert conn.resp_body == ~s|{"name":["can't be blank"]}|
   end
 
-  test "responds to create {:ok, reponse} with 201" do
+  test "formats to create {:ok, reponse} with 201" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:create, conn, {:ok, %{id: 123}})
+    conn = JSON.format(:create, conn, {:ok, %{id: 123}})
 
     assert conn.status == 201
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "responds to update {:ok, reponse} with 200" do
+  test "formats to update {:ok, reponse} with 200" do
     conn = build_conn(:patch, "/any_action")
-    conn = JSON.respond(:update, conn, {:ok, %{id: 123}})
+    conn = JSON.format(:update, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "responds to delete {:ok, reponse} with 200" do
+  test "formats to delete {:ok, reponse} with 200" do
     conn = build_conn(:delete, "/any_action")
-    conn = JSON.respond(:delete, conn, {:ok, %{id: 123}})
+    conn = JSON.format(:delete, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "responds to show {:ok, reponse} with 200" do
+  test "formats to show {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:show, conn, {:ok, %{id: 123}})
+    conn = JSON.format(:show, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "responds to index {:ok, reponse} with 200" do
+  test "formats to index {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:show, conn, {:ok, [%{id: 123}]})
+    conn = JSON.format(:show, conn, {:ok, [%{id: 123}]})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|[{"id":123}]|
   end
 
-  test "responds to unknown response with 500" do
+  test "formats to unknown response with 500" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, :rubbish)
+    conn = JSON.format(:any_action, conn, :rubbish)
 
     assert conn.status == 500
     assert conn.resp_body == ~s|{"message":"Unknown error. Please contact support."}|

@@ -13,4 +13,18 @@ defmodule FakeSchema do
   end
 end
 
+defmodule TestErrorView do
+  use Phoenix.View, root: "test/support"
+
+  def render("error.json", %{changeset: changeset}) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
+
+  defp translate_error({message, values}) do
+    Enum.reduce(values, message, fn {k, v}, acc ->
+      String.replace(acc, "%{#{k}}", to_string(v))
+    end)
+  end
+end
+
 ExUnit.start()

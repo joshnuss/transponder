@@ -58,6 +58,12 @@ defmodule MyAppWeb.Admin.ProductsView do
 end
 ```
 
+To handle errors, configure the error view in `config/config.exs`:
+
+```elixir
+config :transponder, :error_view, MyAppWeb.ErrorView
+```
+
 To render HTML instead of JSON use `Transponder.HTML`:
 
 ```elixir

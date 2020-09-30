@@ -12,9 +12,12 @@ defmodule Transponder.JSON do
   end
 
   def format(_action, conn, {:error, changeset = %Ecto.Changeset{}}) do
+    error_view = Application.get_env(:transponder, :error_view)
+
     conn
     |> put_status(:unprocessable_entity)
-    |> render("errors.json", changeset: changeset)
+    |> put_view(error_view)
+    |> render("error.json", changeset: changeset)
   end
 
   def format(:index, conn, {:ok, records}) do

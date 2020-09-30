@@ -14,16 +14,6 @@ defmodule JSONTest do
     def render("show.json", %{record: record}) do
       record
     end
-
-    def render("errors.json", %{changeset: changeset}) do
-      Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
-    end
-
-    defp translate_error({message, values}) do
-      Enum.reduce(values, message, fn {k, v}, acc ->
-        String.replace(acc, "%{#{k}}", to_string(v))
-      end)
-    end
   end
 
   test "formats to {:error, :not_found} with 404" do

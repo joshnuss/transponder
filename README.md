@@ -9,7 +9,7 @@ DRY up your Phoenix controllers.
 - Supports rendering `Ecto.Changeset` errors.
 - Built-in responders for JSON and HTML with ability to add custom ones.
 
-**Disclaimer**: This is intended for simple apps or when starting to build an application. More complex apps may require more complex in their controllers, and then standard Phoenix controllers and tests would work better. This is just a starting point.
+**Disclaimer**: This is intended for simple apps or when starting to build an application. More complex apps may require more complexity in their controllers, and then a standard Phoenix controller with tests would work better. This is just a starting point.
 
 ## Installation
 

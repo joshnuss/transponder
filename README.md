@@ -5,11 +5,11 @@ DRY up your Phoenix controllers.
 ## Features
 
 - Turns controllers into declarative code.
-- Works with any context function that returns a tagged tuple like `{:ok, ...}` or `{:error, ...}`
-- Understands `Ecto.Changeset` errors and can render the error.
-- Built in responders for JSON and HTML and ability to create custom ones.
+- Works with all context functions that return a tagged tuple like `{:ok, ...}` or `{:error, ...}`
+- Supports rendering `Ecto.Changeset` errors.
+- Built-in responders for JSON and HTML with ability to add custom ones.
 
-**Disclaimer**: this is intended for simple apps or for when you're just starting out building an app. More complex apps will require more code in their controllers and should use standard Phoenix controllers and tests. This is just a starting point.
+**Disclaimer**: This is intended for simple apps or when starting to build an application. More complex apps may require more complex in their controllers, and then standard Phoenix controllers and tests would work better. This is just a starting point.
 
 ## Installation
 
@@ -29,7 +29,7 @@ Add `use Transponder` to your controllers, and define actions with `defaction`:
 defmodule MyAppWeb.Admin.ProductsController do
   use MyAppWeb, :controller
   use Transponder,
-    responder: Transponder.Responders.JSON
+    responder: Transponder.JSON
 
   defaction :index,  &Catalog.list_products(&1.params)
   defaction :show,   &Catalog.get_product(&1.params)
@@ -59,13 +59,13 @@ defmodule MyAppWeb.Admin.ProductsView do
 end
 ```
 
-To render HTML instead of JSON use `Responders.HTML`:
+To render HTML instead of JSON use `Transponder.HTML`:
 
 ```elixir
 defmodule MayAppWeb.Admin.ProductController do
   use MyAppWeb, :controller
   use Transponder,
-    responder: Transponder.Responders.HTML
+    responder: Transponder.HTML
 
   # defaction ...
 end

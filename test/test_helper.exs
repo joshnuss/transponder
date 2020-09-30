@@ -7,7 +7,7 @@ defmodule FakeSchema do
   end
 
   def changeset(params \\ %{}) do
-    %__MODULE__{}
+    %__MODULE__{id: 123}
     |> cast(params, [])
     |> validate_required(:name)
   end

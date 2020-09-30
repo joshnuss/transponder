@@ -1,0 +1,1 @@
+new rendered with id <%= @record.id || "empty" %> and <%= if(@conn.assigns[:changeset], do: length(@changeset.errors), else: 0) %> errors

@@ -1,4 +1,4 @@
-defmodule Responders.HTMLTest do
+defmodule HTMLTest do
   use ExUnit.Case, async: true
   use Plug.Test
 

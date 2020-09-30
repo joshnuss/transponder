@@ -1,4 +1,4 @@
-defmodule Responders.JSONTest do
+defmodule JSONTest do
   use ExUnit.Case, async: true
   use Plug.Test
 

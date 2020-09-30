@@ -43,7 +43,7 @@ defmodule Responders.JSONTest do
 
   test "responds to {:error, :not_found} with 404" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, fn _ -> {:error, :not_found} end)
+    conn = JSON.respond(:any_action, conn, {:error, :not_found})
 
     assert conn.status == 404
     assert conn.resp_body == ~s|{"message":"Not found"}|
@@ -51,7 +51,7 @@ defmodule Responders.JSONTest do
 
   test "responds to {:error, changeset} with 422" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, fn _ -> {:error, FakeSchema.changeset()} end)
+    conn = JSON.respond(:any_action, conn, {:error, FakeSchema.changeset()})
 
     assert conn.status == 422
     assert conn.resp_body == ~s|{"name":["can't be blank"]}|
@@ -59,7 +59,7 @@ defmodule Responders.JSONTest do
 
   test "responds to create {:ok, reponse} with 201" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:create, conn, fn _ -> {:ok, %{id: 123}} end)
+    conn = JSON.respond(:create, conn, {:ok, %{id: 123}})
 
     assert conn.status == 201
     assert conn.resp_body == ~s|{"id":123}|
@@ -67,7 +67,7 @@ defmodule Responders.JSONTest do
 
   test "responds to show {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:show, conn, fn _ -> {:ok, %{id: 123}} end)
+    conn = JSON.respond(:show, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|{"id":123}|
@@ -75,7 +75,7 @@ defmodule Responders.JSONTest do
 
   test "responds to index {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.respond(:show, conn, fn _ -> {:ok, [%{id: 123}]} end)
+    conn = JSON.respond(:show, conn, {:ok, [%{id: 123}]})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|[{"id":123}]|
@@ -83,7 +83,7 @@ defmodule Responders.JSONTest do
 
   test "responds to unknown response with 500" do
     conn = build_conn(:get, "/any_action")
-    conn = JSON.respond(:any_action, conn, fn _ -> :rubbish end)
+    conn = JSON.respond(:any_action, conn, :rubbish)
 
     assert conn.status == 500
     assert conn.resp_body == ~s|{"message":"Unknown error. Please contact support."}|

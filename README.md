@@ -23,7 +23,7 @@ def deps do
 end
 ```
 
-Add `ResourceController` to your controllers:
+Add `use ResourceController` to your controllers, and define actions with `defaction`:
 
 ```elixir
 defmodule MyAppWeb.Admin.ProductsController do
@@ -79,15 +79,18 @@ You can also create a custom responder:
 defmodule MyResponder do
   @behaviour ResourceController.Responder
 
+  # pattern match and render how you like
   @impl true
-  def respond(action, conn, fun) do
-    # pattern match and render how you like
-    case fun.(conn) do
-      {:ok, bla} ->
-        conn
-        |> put_status(200)
-        |> render("yay.html")
-    end
+  def respond(_action, conn, {:ok, bla}) do
+    conn
+    |> put_status(200)
+    |> render("yay.html")
+  end
+
+  def respond(_action, conn, {:error, bla}) do
+    conn
+    |> put_status(401)
+    |> render("oops.html")
   end
 end
 ```

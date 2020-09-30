@@ -9,11 +9,11 @@ defmodule ResourceControllerTest do
     @behaviour ResourceController.Responder
 
     @impl true
-    def respond(:special, conn, _fun) do
+    def respond(:special, conn, _n) do
       resp(conn, 200, "special-case")
     end
-    def respond(action, conn, fun) do
-      response = "#{action}:#{fun.()}"
+    def respond(action, conn, n) do
+      response = "#{action}:#{n}"
       resp(conn, 200, response)
     end
   end
@@ -21,9 +21,9 @@ defmodule ResourceControllerTest do
   defmodule FakeController do
     use ResourceController, responder: TestResponder
 
-    defaction :index, fn -> 123 end
-    defaction :create, fn -> 456 end
-    defaction :special, fn -> 123 end
+    defaction :index, fn _conn -> 123 end
+    defaction :create, fn _conn -> 456 end
+    defaction :special, fn _conn -> 123 end
   end
 
   test "renders response" do

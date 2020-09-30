@@ -5,8 +5,8 @@ defmodule ResourceController.Responders.JSON do
   import Phoenix.Controller
 
   @impl true
-  def respond(action, conn, fun) do
-    case {action, fun.(conn)} do
+  def respond(action, conn, response) do
+    case {action, response} do
       {_action, {:error, :not_found}} ->
         conn
         |> put_status(:not_found)

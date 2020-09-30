@@ -31,9 +31,11 @@ defmodule Transponder.JSON do
     render(conn, "show.json", response: response)
   end
 
-  def respond(_action, conn, _response) do
-    conn
-    |> put_status(500)
-    |> json(%{message: "Unknown error. Please contact support."})
+  if Mix.env() != :dev do
+    def respond(_action, conn, _record) do
+      conn
+      |> put_status(500)
+      |> json(%{message: "Unknown error. Please contact support."})
+    end
   end
 end

@@ -57,9 +57,11 @@ defmodule Transponder.HTML do
     |> redirect(to: "/")
   end
 
-  def respond(_action, conn, _response) do
-    conn
-    |> put_status(500)
-    |> render("500.html")
+  if Mix.env() != :dev do
+    def respond(_action, conn, _response) do
+      conn
+      |> put_status(500)
+      |> render("500.html")
+    end
   end
 end

@@ -50,6 +50,22 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"id":123}|
   end
 
+  test "responds to update {:ok, reponse} with 200" do
+    conn = build_conn(:patch, "/any_action")
+    conn = JSON.respond(:update, conn, {:ok, %{id: 123}})
+
+    assert conn.status == 200
+    assert conn.resp_body == ~s|{"id":123}|
+  end
+
+  test "responds to delete {:ok, reponse} with 200" do
+    conn = build_conn(:delete, "/any_action")
+    conn = JSON.respond(:delete, conn, {:ok, %{id: 123}})
+
+    assert conn.status == 200
+    assert conn.resp_body == ~s|{"id":123}|
+  end
+
   test "responds to show {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
     conn = JSON.respond(:show, conn, {:ok, %{id: 123}})

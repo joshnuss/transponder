@@ -27,7 +27,7 @@ defmodule Transponder.JSON do
     |> render("show.json", record: record)
   end
 
-  def respond(:show, conn, {:ok, record}) do
+  def respond(_action, conn, {:ok, record}) do
     render(conn, "show.json", record: record)
   end
 

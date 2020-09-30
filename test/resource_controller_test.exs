@@ -54,9 +54,9 @@ defmodule ResourceControllerTest do
   end
 
   test "provides params" do
-    conn = conn(:get, "/foo", %{page: 99})
+    conn = conn(:get, "/foo")
 
-    conn = FakeController.with_param(conn, %{})
+    conn = FakeController.with_param(conn, %{"page" => 99})
     assert conn.status == 200
     assert conn.resp_body == "with_param:99"
   end

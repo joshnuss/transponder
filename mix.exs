@@ -22,6 +22,7 @@ defmodule ResourceController.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5"},
+      {:phoenix_html, "~> 2.14"},
       {:ecto, "~> 3.4"},
       {:jason, "~> 1.2"}
       # {:dep_from_hexpm, "~> 0.3.0"},

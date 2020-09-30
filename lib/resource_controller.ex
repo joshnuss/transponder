@@ -16,6 +16,7 @@ defmodule ResourceController do
   defmacro defaction(name, fun) do
     quote do
       def unquote(name)(conn, params) do
+        data = %{conn: conn, params: params, assigns: conn.assigns}
         @responder.respond(unquote(name), conn, unquote(fun).(conn))
       end
     end

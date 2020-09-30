@@ -1,6 +1,6 @@
 # Transponder
 
-DRY up your Phoenix controllers.
+DSL for declarative Phoenix controllers.
 
 ## Features
 

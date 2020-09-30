@@ -26,21 +26,6 @@ defmodule Responders.JSONTest do
     end
   end
 
-  defmodule FakeSchema do
-    use Ecto.Schema
-    import Ecto.Changeset
-
-    schema "baz" do
-      field(:name, :string)
-    end
-
-    def changeset(params \\ %{}) do
-      %__MODULE__{}
-      |> cast(params, [])
-      |> validate_required(:name)
-    end
-  end
-
   test "responds to {:error, :not_found} with 404" do
     conn = build_conn(:get, "/any_action")
     conn = JSON.respond(:any_action, conn, {:error, :not_found})

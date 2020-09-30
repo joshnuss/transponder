@@ -4,7 +4,7 @@ defmodule Responders.HTMLTest do
 
   import Phoenix.ConnTest
 
-  alias ResourceController.Responders.HTML
+  alias Transponder.HTML
 
   defmodule TestView do
     use Phoenix.View, root: "test/support"

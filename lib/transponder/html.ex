@@ -1,5 +1,5 @@
-defmodule ResourceController.Responders.HTML do
-  @behaviour ResourceController.Responder
+defmodule Transponder.HTML do
+  @behaviour Transponder.Responder
 
   import Plug.Conn
   import Phoenix.Controller

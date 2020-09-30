@@ -1,12 +1,12 @@
-defmodule ResourceControllerTest do
+defmodule TransponderTest do
   use ExUnit.Case, async: true
   use Plug.Test
-  doctest ResourceController
+  doctest Transponder
 
   defmodule TestResponder do
     import Plug.Conn
 
-    @behaviour ResourceController.Responder
+    @behaviour Transponder.Responder
 
     @impl true
     def respond(:special, conn, _n) do
@@ -20,7 +20,7 @@ defmodule ResourceControllerTest do
   end
 
   defmodule FakeController do
-    use ResourceController, responder: TestResponder
+    use Transponder, responder: TestResponder
 
     defaction(:index, fn _data -> 123 end)
     defaction(:create, fn _data -> 456 end)

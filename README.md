@@ -1,4 +1,4 @@
-# ResourceController
+# Transponder
 
 DRY up your Phoenix controllers.
 
@@ -13,23 +13,23 @@ DRY up your Phoenix controllers.
 
 ## Installation
 
-Add `resource_controller` to your list of dependencies in `mix.exs`:
+Add `transponder` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:resource_controller, "~> 0.1.0"}
+    {:transponder, "~> 0.1.0"}
   ]
 end
 ```
 
-Add `use ResourceController` to your controllers, and define actions with `defaction`:
+Add `use Transponder` to your controllers, and define actions with `defaction`:
 
 ```elixir
 defmodule MyAppWeb.Admin.ProductsController do
   use MyAppWeb, :controller
-  use ResourceController,
-    responder: ResourceController.Responders.JSON
+  use Transponder,
+    responder: Transponder.Responders.JSON
 
   defaction :index,  &Catalog.list_products(&1.params)
   defaction :show,   &Catalog.get_product(&1.params)
@@ -64,8 +64,8 @@ To render HTML instead of JSON use `Responders.HTML`:
 ```elixir
 defmodule MayAppWeb.Admin.ProductController do
   use MyAppWeb, :controller
-  use ResourceController,
-    responder: ResourceController.Responders.HTML
+  use Transponder,
+    responder: Transponder.Responders.HTML
 
   # defaction ...
 end
@@ -77,7 +77,7 @@ You can also create a custom responder:
 
 ```elixir
 defmodule MyResponder do
-  @behaviour ResourceController.Responder
+  @behaviour Transponder.Responder
 
   # pattern match and render how you like
   @impl true
@@ -97,7 +97,7 @@ end
 
 ## Documentation:
 
-[https://hexdocs.pm/resource_controller](https://hexdocs.pm/resource_controller).
+[https://hexdocs.pm/transponder](https://hexdocs.pm/transponder).
 
 ## License
 

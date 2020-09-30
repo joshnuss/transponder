@@ -1,13 +1,13 @@
-defmodule ResourceController do
+defmodule Transponder do
   @moduledoc """
-  Documentation for ResourceController.
+  Documentation for Transponder.
   """
 
   defmacro __using__(opts) do
     responder = Keyword.fetch!(opts, :responder)
 
     quote do
-      import ResourceController
+      import Transponder
 
       @responder unquote(responder)
     end

@@ -1,5 +1,5 @@
-defmodule ResourceController.Responders.JSON do
-  @behaviour ResourceController.Responder
+defmodule Transponder.JSON do
+  @behaviour Transponder.Responder
 
   import Plug.Conn
   import Phoenix.Controller

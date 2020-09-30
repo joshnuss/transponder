@@ -2,7 +2,7 @@ defmodule Responders.JSONTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias ResourceController.Responders.JSON
+  alias Transponder.JSON
 
   defmodule TestView do
     use Phoenix.View, root: "test/support"

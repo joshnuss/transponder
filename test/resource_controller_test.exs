@@ -22,11 +22,11 @@ defmodule ResourceControllerTest do
   defmodule FakeController do
     use ResourceController, responder: TestResponder
 
-    defaction :index, fn _data -> 123 end
-    defaction :create, fn _data -> 456 end
-    defaction :special, fn _data -> 123 end
-    defaction :with_assigns, fn data -> data.assigns.magic_number end
-    defaction :with_param, fn data -> data.params["page"] end
+    defaction(:index, fn _data -> 123 end)
+    defaction(:create, fn _data -> 456 end)
+    defaction(:special, fn _data -> 123 end)
+    defaction(:with_assigns, fn data -> data.assigns.magic_number end)
+    defaction(:with_param, fn data -> data.params["page"] end)
   end
 
   test "renders response" do

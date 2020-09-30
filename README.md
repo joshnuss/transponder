@@ -31,8 +31,8 @@ defmodule MyAppWeb.Admin.ProductsController do
   use ResourceController,
     responder: ResourceController.Reponders.JSON
 
-  defaction :index, &Catalog.list_products(&1.params)
-  defaction :show, &Catalog.get_product(&1.params)
+  defaction :index,  &Catalog.list_products(&1.params)
+  defaction :show,   &Catalog.get_product(&1.params)
   defaction :create, &Catalog.create_product(&1.params["product"])
   defaction :update, &Catalog.update_product(&1.params["id"], &1.params["product"])
   defaction :delete, &Catalog.delete_product(&1.params["id"])

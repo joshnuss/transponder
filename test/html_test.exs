@@ -7,7 +7,7 @@ defmodule HTMLTest do
   alias Transponder.HTML
 
   defmodule TestView do
-    use Phoenix.View, root: "test/support"
+    use Phoenix.View, root: "test/support/html_test"
 
     def render("404.html", _assigns) do
       "Page not found"

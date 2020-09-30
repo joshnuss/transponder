@@ -7,12 +7,12 @@ defmodule JSONTest do
   defmodule TestView do
     use Phoenix.View, root: "test/support"
 
-    def render("index.json", %{response: response}) do
-      response
+    def render("index.json", %{records: records}) do
+      records
     end
 
-    def render("show.json", %{response: response}) do
-      response
+    def render("show.json", %{record: record}) do
+      record
     end
 
     def render("errors.json", %{changeset: changeset}) do

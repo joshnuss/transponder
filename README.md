@@ -45,11 +45,11 @@ Then define a `show.json.eex` and `index.json.eex`. Or you can use a `Phoenix.Vi
 defmodule MyAppWeb.Admin.ProductsView do
   use MyAppWeb, :view
 
-  def render("index.json", %{response: products}) do
+  def render("index.json", %{records: products}) do
     %{products: Enum.map(&render("show.json", response: &1))}
   end
 
-  def render("show.json", %{response: product}) do
+  def render("show.json", %{record: product}) do
     %{
       id: product.id,
       title: product.title,

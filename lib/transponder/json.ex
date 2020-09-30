@@ -17,18 +17,18 @@ defmodule Transponder.JSON do
     |> render("errors.json", changeset: changeset)
   end
 
-  def respond(:index, conn, {:ok, response}) do
-    render(conn, "index.json", response: response)
+  def respond(:index, conn, {:ok, records}) do
+    render(conn, "index.json", record: records)
   end
 
-  def respond(:create, conn, {:ok, response}) do
+  def respond(:create, conn, {:ok, record}) do
     conn
     |> put_status(201)
-    |> render("show.json", response: response)
+    |> render("show.json", record: record)
   end
 
-  def respond(:show, conn, {:ok, response}) do
-    render(conn, "show.json", response: response)
+  def respond(:show, conn, {:ok, record}) do
+    render(conn, "show.json", record: record)
   end
 
   if Mix.env() != :dev do

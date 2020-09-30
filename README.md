@@ -23,7 +23,7 @@ def deps do
 end
 ```
 
-Add `ResourceController` to your controllers:
+Add `use ResourceController` to your controllers, and define actions with `defaction`:
 
 ```elixir
 defmodule MyAppWeb.Admin.ProductsController do

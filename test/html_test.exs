@@ -76,7 +76,7 @@ defmodule HTMLTest do
 
   test "formats to index {:ok, response} with 200" do
     conn = build_conn_with_view(:get, "/")
-    conn = HTML.format(:index, conn, {:ok, [%{id: 123}]})
+    conn = HTML.format(:index, conn, [%{id: 123}])
 
     assert conn.status == 200
     assert conn.resp_body == "index rendered 1\n"

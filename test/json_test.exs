@@ -66,7 +66,7 @@ defmodule JSONTest do
 
   test "formats to index {:ok, reponse} with 200" do
     conn = build_conn(:post, "/any_action")
-    conn = JSON.format(:show, conn, {:ok, [%{id: 123}]})
+    conn = JSON.format(:index, conn, [%{id: 123}])
 
     assert conn.status == 200
     assert conn.resp_body == ~s|[{"id":123}]|

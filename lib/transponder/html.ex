@@ -43,7 +43,7 @@ defmodule Transponder.HTML do
     |> redirect(to: "/")
   end
 
-  def format(:index, conn, {:ok, records}) do
+  def format(:index, conn, records) do
     render(conn, "index.html", records: records)
   end
 

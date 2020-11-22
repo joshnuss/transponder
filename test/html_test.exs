@@ -107,11 +107,11 @@ defmodule HTMLTest do
   end
 
   @session Plug.Session.init(
-    store: :cookie,
-    key: "_app",
-    encryption_salt: "yadayada",
-    signing_salt: "yadayada"
-  )
+             store: :cookie,
+             key: "_app",
+             encryption_salt: "yadayada",
+             signing_salt: "yadayada"
+           )
 
   defp with_session(conn) do
     conn
@@ -121,6 +121,9 @@ defmodule HTMLTest do
   end
 
   defp build_conn_with_view(method, action) do
-    build_conn(method, action) |> Phoenix.Controller.put_view(TestView) |> with_session() |> fetch_flash()
+    build_conn(method, action)
+    |> Phoenix.Controller.put_view(TestView)
+    |> with_session()
+    |> fetch_flash()
   end
 end

@@ -45,7 +45,7 @@ defmodule MyAppWeb.Admin.ProductsView do
   use MyAppWeb, :view
 
   def render("index.json", %{records: products}) do
-    %{products: Enum.map(&render("show.json", response: &1))}
+    %{products: Enum.map(&render("show.json", %{record: &1}))}
   end
 
   def render("show.json", %{record: product}) do

@@ -20,6 +20,10 @@ defmodule Transponder.JSON do
     |> render("error.json", changeset: changeset)
   end
 
+  def format(:index, conn, {:ok, records}) do
+    format(:index, conn, records)
+  end
+
   def format(:index, conn, records) do
     render(conn, "index.json", records: records)
   end

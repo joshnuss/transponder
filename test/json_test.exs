@@ -32,7 +32,7 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"name":["can't be blank"]}|
   end
 
-  test "formats to create {:ok, reponse} with 201" do
+  test "formats to create {:ok, response} with 201" do
     conn = build_conn(:post, "/any_action")
     conn = JSON.format(:create, conn, {:ok, %{id: 123}})
 
@@ -40,7 +40,7 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "formats to update {:ok, reponse} with 200" do
+  test "formats to update {:ok, response} with 200" do
     conn = build_conn(:patch, "/any_action")
     conn = JSON.format(:update, conn, {:ok, %{id: 123}})
 
@@ -48,7 +48,7 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "formats to delete {:ok, reponse} with 200" do
+  test "formats to delete {:ok, response} with 200" do
     conn = build_conn(:delete, "/any_action")
     conn = JSON.format(:delete, conn, {:ok, %{id: 123}})
 
@@ -56,16 +56,24 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "formats to show {:ok, reponse} with 200" do
-    conn = build_conn(:post, "/any_action")
+  test "formats to show {:ok, response} with 200" do
+    conn = build_conn(:get, "/any_action")
     conn = JSON.format(:show, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
     assert conn.resp_body == ~s|{"id":123}|
   end
 
-  test "formats to index {:ok, reponse} with 200" do
-    conn = build_conn(:post, "/any_action")
+  test "formats to index {:ok, response} with 200" do
+    conn = build_conn(:get, "/any_action")
+    conn = JSON.format(:index, conn, {:ok, [%{id: 123}]})
+
+    assert conn.status == 200
+    assert conn.resp_body == ~s|[{"id":123}]|
+  end
+
+  test "formats to index response with 200" do
+    conn = build_conn(:get, "/any_action")
     conn = JSON.format(:index, conn, [%{id: 123}])
 
     assert conn.status == 200

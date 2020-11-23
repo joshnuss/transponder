@@ -51,7 +51,7 @@ defmodule HTMLTest do
   end
 
   test "formats to edit {:ok, response} with 200" do
-    conn = build_conn_with_view(:post, "/edit")
+    conn = build_conn_with_view(:get, "/edit")
     conn = HTML.format(:edit, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
@@ -76,10 +76,18 @@ defmodule HTMLTest do
 
   test "formats to index {:ok, response} with 200" do
     conn = build_conn_with_view(:get, "/")
+    conn = HTML.format(:index, conn, {:ok,[%{id: 123}]})
+
+    assert conn.status == 200
+    assert conn.resp_body == "index rendered 1"
+  end
+
+  test "formats to index response with 200" do
+    conn = build_conn_with_view(:get, "/")
     conn = HTML.format(:index, conn, [%{id: 123}])
 
     assert conn.status == 200
-    assert conn.resp_body == "index rendered 1\n"
+    assert conn.resp_body == "index rendered 1"
   end
 
   test "formats to show {:ok, response} with 200" do
@@ -87,7 +95,7 @@ defmodule HTMLTest do
     conn = HTML.format(:show, conn, {:ok, %{id: 123}})
 
     assert conn.status == 200
-    assert conn.resp_body == "show rendered 123\n"
+    assert conn.resp_body == "show rendered 123"
   end
 
   test "formats to delete {:ok, response} with redirect" do

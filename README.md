@@ -18,7 +18,7 @@ Add `transponder` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:transponder, "~> 0.1.0"}
+    {:transponder, "~> 0.2"}
   ]
 end
 ```

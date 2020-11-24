@@ -23,18 +23,18 @@ def deps do
 end
 ```
 
-Add `use Transponder` to your controllers, and define actions with `defaction`:
+Add `use Transponder` to your controllers, and define actions with `action`:
 
 ```elixir
 defmodule MyAppWeb.Admin.ProductsController do
   use MyAppWeb, :controller
   use Transponder, format: Transponder.JSON
 
-  defaction :index,  &Catalog.list_products(&1.params)
-  defaction :show,   &Catalog.get_product(&1.params)
-  defaction :create, &Catalog.create_product(&1.params["product"])
-  defaction :update, &Catalog.update_product(&1.params["id"], &1.params["product"])
-  defaction :delete, &Catalog.delete_product(&1.params["id"])
+  action :index,  &Catalog.list_products(&1.params)
+  action :show,   &Catalog.get_product(&1.params)
+  action :create, &Catalog.create_product(&1.params["product"])
+  action :update, &Catalog.update_product(&1.params["id"], &1.params["product"])
+  action :delete, &Catalog.delete_product(&1.params["id"])
 end
 ```
 
@@ -71,7 +71,7 @@ defmodule MayAppWeb.Admin.ProductController do
   use MyAppWeb, :controller
   use Transponder, format: Transponder.HTML
 
-  # defaction ...
+  # action ...
 end
 ```
 

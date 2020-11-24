@@ -22,11 +22,11 @@ defmodule TransponderTest do
   defmodule FakeController do
     use Transponder, format: TestFormat
 
-    defaction(:index, fn _data -> 123 end)
-    defaction(:create, fn _data -> 456 end)
-    defaction(:special, fn _data -> 123 end)
-    defaction(:with_assigns, fn data -> data.assigns.magic_number end)
-    defaction(:with_param, fn data -> data.params["page"] end)
+    action(:index, fn _data -> 123 end)
+    action(:create, fn _data -> 456 end)
+    action(:special, fn _data -> 123 end)
+    action(:with_assigns, fn data -> data.assigns.magic_number end)
+    action(:with_param, fn data -> data.params["page"] end)
   end
 
   test "renders response" do

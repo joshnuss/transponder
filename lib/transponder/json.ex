@@ -30,7 +30,7 @@ defmodule Transponder.JSON do
 
   def format(:create, conn, {:ok, record}) do
     conn
-    |> put_status(201)
+    |> put_status(:created)
     |> render("show.json", record: record)
   end
 
@@ -41,7 +41,7 @@ defmodule Transponder.JSON do
   if Mix.env() != :dev do
     def format(_action, conn, _record) do
       conn
-      |> put_status(500)
+      |> put_status(:internal_server_error)
       |> json(%{message: "Unknown error. Please contact support."})
     end
   end

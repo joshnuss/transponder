@@ -64,7 +64,7 @@ defmodule Transponder.HTML do
   if Mix.env() != :dev do
     def format(_action, conn, _response) do
       conn
-      |> put_status(500)
+      |> put_status(:internal_server_error)
       |> render("500.html")
     end
   end

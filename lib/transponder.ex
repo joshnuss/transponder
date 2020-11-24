@@ -13,7 +13,7 @@ defmodule Transponder do
     end
   end
 
-  defmacro action(name, fun) do
+  defmacro defaction(name, fun) do
     quote do
       def unquote(name)(conn, params) do
         data = %{conn: conn, params: params, assigns: conn.assigns}

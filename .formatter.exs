@@ -2,6 +2,6 @@
 [
   inputs: ["{mix,.formatter}.exs", "{config,lib,test}/**/*.{ex,exs}"],
   export: [
-    locals_without_parens: [defaction: 2]
+    locals_without_parens: [action: 2]
   ]
 ]

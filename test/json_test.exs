@@ -32,6 +32,14 @@ defmodule JSONTest do
     assert conn.resp_body == ~s|{"name":["can't be blank"]}|
   end
 
+  test "formats to {:error, changesets} with 422" do
+    conn = build_conn(:get, "/any_action")
+    conn = JSON.format(:any_action, conn, {:error, [FakeSchema.changeset(), FakeSchema.changeset()]})
+
+    assert conn.status == 422
+    assert conn.resp_body == ~s|{"0":{"name":["can't be blank"]},"1":{"name":["can't be blank"]}}|
+  end
+
   test "formats to create {:ok, response} with 201" do
     conn = build_conn(:post, "/any_action")
     conn = JSON.format(:create, conn, {:ok, %{id: 123}})

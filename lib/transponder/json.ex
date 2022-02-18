@@ -20,6 +20,15 @@ defmodule Transponder.JSON do
     |> render("error.json", changeset: changeset)
   end
 
+  def format(_action, conn, {:error, changesets}) when is_list(changesets) do
+    error_view = Application.get_env(:transponder, :error_view)
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(error_view)
+    |> render("error.json", changesets: changesets)
+  end
+
   def format(:index, conn, {:ok, records}) do
     format(:index, conn, records)
   end
